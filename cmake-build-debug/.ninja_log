@@ -1,0 +1,27 @@
+# ninja log v6
+3	1443	7513117483084397	NeoEngine/3rdLibs/glfw/src/CMakeFiles/glfw.dir/context.c.obj	6fe5394e7a3708ec
+78	1564	7513117483847750	NeoEngine/3rdLibs/glfw/src/CMakeFiles/glfw.dir/init.c.obj	3434968eb8431ab8
+2057	3655	7513117503628430	NeoEngine/3rdLibs/glfw/src/CMakeFiles/glfw.dir/win32_monitor.c.obj	c792458b324db490
+157	1802	7513117484635727	NeoEngine/3rdLibs/glfw/src/CMakeFiles/glfw.dir/input.c.obj	a75f0cc729679955
+565	2315	7513117488718831	NeoEngine/3rdLibs/glfw/src/CMakeFiles/glfw.dir/window.c.obj	a6d559fcb90ab796
+259	1934	7513117485654766	NeoEngine/3rdLibs/glfw/src/CMakeFiles/glfw.dir/monitor.c.obj	9fe223d753df8cc4
+1210	2934	7513117495163881	NeoEngine/3rdLibs/glfw/src/CMakeFiles/glfw.dir/null_joystick.c.obj	10e3e0a30f85e7cf
+1934	3525	7513117502405487	NeoEngine/3rdLibs/glfw/src/CMakeFiles/glfw.dir/win32_joystick.c.obj	b3746c68d85e670f
+1451	3123	7513117497571789	NeoEngine/3rdLibs/glfw/src/CMakeFiles/glfw.dir/win32_time.c.obj	e8292c38326b016
+462	2182	7513117487687659	NeoEngine/3rdLibs/glfw/src/CMakeFiles/glfw.dir/vulkan.c.obj	ea42af8b5a16bb05
+365	2056	7513117486710116	NeoEngine/3rdLibs/glfw/src/CMakeFiles/glfw.dir/platform.c.obj	5b2154de72f42758
+674	2444	7513117489805184	NeoEngine/3rdLibs/glfw/src/CMakeFiles/glfw.dir/egl_context.c.obj	21fcac5d291b8f4b
+779	2604	7513117490858109	NeoEngine/3rdLibs/glfw/src/CMakeFiles/glfw.dir/osmesa_context.c.obj	25b9fd234a7fde4e
+884	2606	7513117491896474	NeoEngine/3rdLibs/glfw/src/CMakeFiles/glfw.dir/null_init.c.obj	829bf11b4edb85fa
+993	2709	7513117492994957	NeoEngine/3rdLibs/glfw/src/CMakeFiles/glfw.dir/null_monitor.c.obj	d7dcb8eb32046f67
+1097	2842	7513117494034528	NeoEngine/3rdLibs/glfw/src/CMakeFiles/glfw.dir/null_window.c.obj	da45fb69ee2e1014
+1327	3061	7513117496340795	NeoEngine/3rdLibs/glfw/src/CMakeFiles/glfw.dir/win32_module.c.obj	3961ebeb5f00f80e
+6	398	7513142345084071	NeoEngine/Engine/NeoEngine.exe	dc59fa7e6d70e8ae
+1564	3213	7513117498706185	NeoEngine/3rdLibs/glfw/src/CMakeFiles/glfw.dir/win32_thread.c.obj	e78310f201617fd9
+1802	3418	7513117501083237	NeoEngine/3rdLibs/glfw/src/CMakeFiles/glfw.dir/win32_init.c.obj	eed9103bc1611bbe
+2315	3850	7513117506213410	NeoEngine/3rdLibs/glfw/src/CMakeFiles/glfw.dir/wgl_context.c.obj	646add5bf6b7a0ef
+2182	3883	7513117504878359	NeoEngine/3rdLibs/glfw/src/CMakeFiles/glfw.dir/win32_window.c.obj	257feb085da34b5f
+3883	4304	7513117521893091	NeoEngine/3rdLibs/glfw/src/libglfw3.a	fca42d769fd851a3
+7	690	7513141820082125	NeoEngine/Engine/CMakeFiles/NeoEngine.dir/src/main.cpp.obj	6f46f8f6885ec976
+7	698	7513143182576951	NeoEngine/Engine/CMakeFiles/NeoEngine.dir/src/main.cpp.obj	bd661a00bf93d80e
+699	1090	7513143189501187	NeoEngine/Engine/NeoEngine.exe	dc59fa7e6d70e8ae
