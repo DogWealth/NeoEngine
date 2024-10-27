@@ -8,6 +8,7 @@
 #include <iostream>
 #include <stdarg.h>
 #include <cstdint>
+#include <stdlib.h>
 
 #include <string>
 #include <vector>

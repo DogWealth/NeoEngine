@@ -10,9 +10,9 @@
 #ifdef NEO_ASSERTIONS_ENABLED
 #if _MSC_VER
 #include <intrin.h>
-#define DebugBreak() __debugbreak()
+#define NeoDebugBreak() __debugbreak()
 #else
-#define DebugBreak() __builtin_trap()
+#define NeoDebugBreak() __builtin_trap()
 #endif
 
 //if inline function, we don't have to use NEO_API. otherwise need to use NEO_API to export to the dll
@@ -29,7 +29,7 @@ inline void ReportAssertionFailure(const char* expr, const char* message, const 
     if(expr) {                                                  \
     } else {                                                    \
         ReportAssertionFailure(#expr, "", __FILE__, __LINE__);   \
-        DebugBreak();                                           \
+        NeoDebugBreak();                                           \
     }                                                           \
 }
 
@@ -38,7 +38,7 @@ inline void ReportAssertionFailure(const char* expr, const char* message, const 
     if(expr) {                                                      \
     } else {                                                        \
         ReportAssertionFailure(#expr, message, __FILE__, __LINE__);  \
-        DebugBreak();                                               \
+        NeoDebugBreak();                                               \
     }                                                               \
 }
 
@@ -48,7 +48,7 @@ inline void ReportAssertionFailure(const char* expr, const char* message, const 
     if(expr) {                                                        \
     } else {                                                          \
         ReportAssertionFailure(#expr, "", __FILE__, __LINE__);         \
-        DebugBreak();                                                 \
+        NeoDebugBreak();                                                 \
     }                                                                 \
 }
 #else
