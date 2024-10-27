@@ -1,3 +1,8 @@
-add_executable(NeoEngine src/main.cpp)
+file(GLOB_RECURSE SRC src/*.h src/*.cpp)
 
-target_link_libraries(NeoEngine PUBLIC glfw Vulkan glm STB)
+add_library(NeoEngine SHARED ${SRC})
+add_definitions(-DNEO_EXPORT -DNEO_DEBUG)
+target_link_libraries(NeoEngine PUBLIC glfw Vulkan STB)
+target_include_directories(NeoEngine PUBLIC ../3rdLibs/glm)
+
+target_precompile_headers(NeoEngine PUBLIC src/pch.h)

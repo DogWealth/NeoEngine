@@ -1,18 +1,9 @@
 #pragma once
 
-#ifdef NEXPORT
+#ifdef NEO_EXPORT
 //export
-#ifdef _MSC_VER //if use MSVC compiler
-#define NAPI _declspec(dllexport)
-#else			//other compilers
-#define NAPI __attribute__(visibility("default"))
-#endif // _MSC_VER
-
+#define NEO_API __declspec(dllexport)
 #else
 //import
-#ifdef _MSC_VER
-#define NAPI _declspec(dllimport)
-#else
-#define NAPI
-#endif // _MSC_VER
+#define NEO_API __declspec(dllimport)
 #endif // NEXPORT
