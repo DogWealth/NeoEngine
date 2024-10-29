@@ -21,28 +21,29 @@ namespace NeoEngine {
         PlatformWindows();
         ~PlatformWindows() override;
 
-        bool PlatformStartup(
+        bool Startup(
             const std::string& application_name,
             int32_t x,
             int32_t y,
             int32_t width,
             int32_t height) override;
 
-        void PlatformShutdown() override;
+        void Shutdown() override;
 
-        static void PlatformConsoleWrite(const std::string& message, uint8_t color);
-        static void PlatformConsoleWriteError(const std::string& message, uint8_t color);
+        static void ConsoleWrite(const std::string& message, uint8_t color);
+        static void ConsoleWriteError(const std::string& message, uint8_t color);
+
+        void* Allocate(uint64_t size, bool aligned) override;
+        void Deallocate(void* ptr, bool aligned) override;
 
     private:
 
-        bool PlatformPumpMessage() override;
-        void* PlatformAllocate(uint64_t size, bool aligned) override;
-        void PlatformDeallocate(void* ptr, bool aligned) override;
-        void* PlatformZeroMemory(void* ptr, uint64_t size) override;
-        void* PlatformCopyMemory(void* dest, const void* src, uint64_t size) override;
-        void* PlatformSetMemory(void* dest, int32_t value, uint64_t size) override;
-        double PlatformGetAbsoluteTime() override;
-        void PlatformSleep(uint64_t ms) override;
+        bool PumpMessage() override;
+        void* Zero_Memory(void* ptr, uint64_t size) override;
+        void* Copy_Memory(void* dest, const void* src, uint64_t size) override;
+        void* SetMemory(void* dest, int32_t value, uint64_t size) override;
+        double GetAbsoluteTime() override;
+        void Sleep_(uint64_t ms) override;
 
     private:
         PlatformState* platform_state_;

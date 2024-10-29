@@ -5,17 +5,17 @@
 
 #include "platform_windows.h"
 namespace NeoEngine {
-    void Platform::PlatformConsoleWrite(const std::string& message, uint8_t color) {
+    void Platform::ConsoleWrite(const std::string& message, uint8_t color) {
 #ifdef NEO_PLATFORM_WINDOWS
-        PlatformWindows::PlatformConsoleWrite(message, color);
+        PlatformWindows::ConsoleWrite(message, color);
 #else
         NEO_FATAL("Only implement windows platform now!")
 #endif
     }
 
-    void Platform::PlatformConsoleWriteError(const std::string& message, uint8_t color) {
+    void Platform::ConsoleWriteError(const std::string& message, uint8_t color) {
 #ifdef NEO_PLATFORM_WINDOWS
-        PlatformWindows::PlatformConsoleWriteError(message, color);
+        PlatformWindows::ConsoleWriteError(message, color);
 #else
         NEO_FATAL("Only implement windows platform now!")
 #endif

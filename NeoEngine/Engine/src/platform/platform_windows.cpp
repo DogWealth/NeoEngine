@@ -12,10 +12,10 @@ namespace NeoEngine {
     }
 
     PlatformWindows::~PlatformWindows() {
-        PlatformWindows::PlatformShutdown();
+        PlatformWindows::Shutdown();
     }
 
-    bool PlatformWindows::PlatformStartup(
+    bool PlatformWindows::Startup(
         const std::string& application_name,
         int32_t x,
         int32_t y,
@@ -100,7 +100,10 @@ namespace NeoEngine {
         return true;
     }
 
-    void PlatformWindows::PlatformShutdown() {
+    void PlatformWindows::Shutdown() {
+        if(!platform_state_)
+            return;
+
         if(platform_state_->hWnd) {
             DestroyWindow(platform_state_->hWnd);
             platform_state_->hWnd = nullptr;
@@ -109,7 +112,7 @@ namespace NeoEngine {
         delete platform_state_;
     }
 
-    bool PlatformWindows::PlatformPumpMessage() {
+    bool PlatformWindows::PumpMessage() {
         MSG message;
         while(PeekMessageA(&message, nullptr, 0, 0, PM_REMOVE)) {
             TranslateMessage(&message);
@@ -118,29 +121,29 @@ namespace NeoEngine {
         return true;
     }
 
-    void* PlatformWindows::PlatformAllocate(uint64_t size, bool aligned) {
+    void* PlatformWindows::Allocate(uint64_t size, bool aligned) {
         //TODO: need to do more
         return malloc(size);
     }
 
-    void PlatformWindows::PlatformDeallocate(void *ptr, bool aligned) {
+    void PlatformWindows::Deallocate(void *ptr, bool aligned) {
         //TODO: need to do moore
         free(ptr);
     }
 
-    void * PlatformWindows::PlatformZeroMemory(void *ptr, uint64_t size) {
+    void * PlatformWindows::Zero_Memory(void *ptr, uint64_t size) {
         return memset(ptr, 0, size);
     }
 
-    void * PlatformWindows::PlatformCopyMemory(void *dest, const void *src, uint64_t size) {
+    void * PlatformWindows::Copy_Memory(void *dest, const void *src, uint64_t size) {
         return memcpy(dest, src, size);
     }
 
-    void * PlatformWindows::PlatformSetMemory(void *dest, int32_t value, uint64_t size) {
+    void * PlatformWindows::SetMemory(void *dest, int32_t value, uint64_t size) {
         return memset(dest, value, size);
     }
 
-    void PlatformWindows::PlatformConsoleWrite(const std::string& message, const uint8_t color) {
+    void PlatformWindows::ConsoleWrite(const std::string& message, const uint8_t color) {
         HANDLE console_handle = GetStdHandle(STD_OUTPUT_HANDLE);
         //FATAL, ERROR, WARNING, INFO, DEBUG, TRACE
         static uint8_t level[6] = {64, 4, 6, 2, 1, 8};
@@ -151,7 +154,7 @@ namespace NeoEngine {
         WriteConsoleA(GetStdHandle(STD_OUTPUT_HANDLE), message.c_str(), (DWORD)length, number_written, nullptr);
     }
 
-    void PlatformWindows::PlatformConsoleWriteError(const std::string& message, uint8_t color) {
+    void PlatformWindows::ConsoleWriteError(const std::string& message, uint8_t color) {
         HANDLE console_handle = GetStdHandle(STD_ERROR_HANDLE);
         //FATAL, ERROR, WARNING, INFO, DEBUG, TRACE
         static uint8_t level[6] = {64, 4, 6, 2, 1, 8};
@@ -162,13 +165,13 @@ namespace NeoEngine {
         WriteConsoleA(GetStdHandle(STD_ERROR_HANDLE), message.c_str(), (DWORD)length, number_written, nullptr);
     }
 
-    double PlatformWindows::PlatformGetAbsoluteTime() {
+    double PlatformWindows::GetAbsoluteTime() {
         LARGE_INTEGER now_time;
         QueryPerformanceCounter(&now_time);
         return (double)now_time.QuadPart * clock_frequency_;
     }
 
-    void PlatformWindows::PlatformSleep(uint64_t ms) {
+    void PlatformWindows::Sleep_(uint64_t ms) {
         Sleep(ms);
     }
 
