@@ -22,19 +22,19 @@ namespace NeoEngine {
         virtual void Shutdown() = 0;
         virtual bool PumpMessage() = 0;
 
-        static void ConsoleWrite(const std::string& message, uint8_t color);
-        static void ConsoleWriteError(const std::string& message, uint8_t color);
+        virtual void ConsoleWrite(const std::string& message, uint8_t color) = 0;
+        virtual void ConsoleWriteError(const std::string& message, uint8_t color) = 0;
 
         virtual void* Allocate(uint64_t size, bool aligned) = 0;
         virtual void Deallocate(void* ptr, bool aligned) = 0;
 
-        static Platform* Create();
-
-    protected:
         virtual void* Zero_Memory(void* ptr, uint64_t size) = 0;
         virtual void* Copy_Memory(void* dest, const void* src, uint64_t size) = 0;
         virtual void* SetMemory(void* dest, int32_t value, uint64_t size) = 0;
 
+        static Platform& GetPlatform();
+
+    protected:
         virtual double GetAbsoluteTime() = 0;
 
         virtual void Sleep_(uint64_t ms) = 0;

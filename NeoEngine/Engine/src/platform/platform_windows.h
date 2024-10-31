@@ -30,18 +30,19 @@ namespace NeoEngine {
 
         void Shutdown() override;
 
-        static void ConsoleWrite(const std::string& message, uint8_t color);
-        static void ConsoleWriteError(const std::string& message, uint8_t color);
+        void ConsoleWrite(const std::string& message, uint8_t color) override;
+        void ConsoleWriteError(const std::string& message, uint8_t color) override;
 
         void* Allocate(uint64_t size, bool aligned) override;
         void Deallocate(void* ptr, bool aligned) override;
 
-    private:
-
-        bool PumpMessage() override;
         void* Zero_Memory(void* ptr, uint64_t size) override;
         void* Copy_Memory(void* dest, const void* src, uint64_t size) override;
         void* SetMemory(void* dest, int32_t value, uint64_t size) override;
+
+    private:
+
+        bool PumpMessage() override;
         double GetAbsoluteTime() override;
         void Sleep_(uint64_t ms) override;
 

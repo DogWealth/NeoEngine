@@ -4,10 +4,11 @@
 
 #include "application.h"
 #include "game.h"
+#include "memory.h"
 
 namespace NeoEngine {
     Application::Application() : initialized_(false) , state_(){
-        state_.platform = Platform::Create();
+        state_.platform = &Platform::GetPlatform();
     }
 
     Application::~Application() {
@@ -50,6 +51,8 @@ namespace NeoEngine {
     }
 
     bool Application::Run() {
+        NEO_INFO(Memory::GetMemoryUsageStr().c_str());
+
         while(state_.is_running) {
             if(!state_.platform->PumpMessage()) {
                 state_.is_running = false;

@@ -31,9 +31,9 @@ namespace NeoEngine {
         sprintf(out_buffer, "%s%s\n", level_str[level_], buffer);
 
         if(is_error) {
-            Platform::ConsoleWriteError(out_buffer, level_);
+            Platform::GetPlatform().ConsoleWriteError(out_buffer, level_);
         } else {
-            Platform::ConsoleWrite(out_buffer, level_);
+            Platform::GetPlatform().ConsoleWrite(out_buffer, level_);
         }
     }
 }

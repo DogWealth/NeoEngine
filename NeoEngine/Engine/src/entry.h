@@ -8,9 +8,12 @@
 #include "core/application.h"
 #include "core/logger.h"
 #include "game.h"
+#include "core/memory.h"
 
 //main entry point
 int main() {
+    NeoEngine::Memory::Initialize();
+
     NeoEngine::Game* game = NeoEngine::CreateGame();
     if(game == nullptr) {
         NEO_FATAL("Couldn't create game.\n");
@@ -27,6 +30,8 @@ int main() {
         NEO_FATAL("Application did not shutdown gracefully.\n");
         return 2;
     }
+
+    NeoEngine::Memory::Destroy();
 }
 
 #endif //ENTRY_H

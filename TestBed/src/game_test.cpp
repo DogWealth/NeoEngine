@@ -3,6 +3,7 @@
 //
 
 #include "game_test.h"
+#include <core/memory.h>
 
 bool GameTest::Initialize() {
     NEO_INFO("Initializing...");
@@ -10,7 +11,7 @@ bool GameTest::Initialize() {
 }
 
 bool GameTest::Update(float delta_time) {
-    NEO_INFO("Updating...");
+    //NEO_INFO("Updating...");
     return true;
 }
 
@@ -31,8 +32,10 @@ NeoEngine::Game* NeoEngine::CreateGame() {
     config.start_height = 720;
     config.name = "NeoEngine";
 
-    NeoEngine::Game* game = new GameTest;
+    Game* game = new GameTest;
     game->SetAppConfig(config);
+    void* game_state = game->GetGameState();
+    game_state = NeoEngine::Memory::Allocate(sizeof(GameState), MemoryTag::MEMORY_TAG_GAME);
     return game;
 
 }
