@@ -5,6 +5,7 @@
 #include "application.h"
 #include "game.h"
 #include "memory.h"
+#include "event.h"
 
 namespace NeoEngine {
     Application::Application() : initialized_(false) , state_(){
@@ -12,8 +13,14 @@ namespace NeoEngine {
     }
 
     Application::~Application() {
+        if(Event::GetEventSystem().IsInitialized()) {
+            Event::GetEventSystem().Shutdown();
+            NEO_DEBUG("Event System shutdown");
+        }
         state_.platform->Shutdown();
         delete state_.platform;
+
+        NEO_DEBUG("Application has been destroyed");
     }
 
     bool Application::Create(Game* game) {
@@ -23,6 +30,11 @@ namespace NeoEngine {
         }
 
         NEO_DEBUG("Application is created.");
+
+        if(!Event::GetEventSystem().IsInitialized()) {
+            Event::GetEventSystem().Initialize();
+            NEO_DEBUG("Event system is initialized.");
+        }
 
         state_.game = game;
         state_.is_running = true;
@@ -68,7 +80,6 @@ namespace NeoEngine {
         }
 
         state_.is_running = false;
-        state_.platform->Shutdown();
         return true;
     }
 }
