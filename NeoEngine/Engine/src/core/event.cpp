@@ -12,6 +12,7 @@ namespace NeoEngine {
 
         Memory::Zero_Memory(&state_, sizeof(state_));
         is_initialized_ = true;
+        NEO_DEBUG_MSG("Event system is initialized.");
         return true;
     }
 

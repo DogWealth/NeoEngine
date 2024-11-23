@@ -20,13 +20,12 @@ int main() {
         return -1;
     }
 
-    NeoEngine::Application app;
-    if(!app.Create(game)) {
+    if(!NeoEngine::Application::Create(game)) {
         NEO_FATAL("Couldn't create application.\n");
         return 1;
     }
 
-    if(!app.Run()) {
+    if(!NeoEngine::Application::Run()) {
         NEO_FATAL("Application did not shutdown gracefully.\n");
         return 2;
     }

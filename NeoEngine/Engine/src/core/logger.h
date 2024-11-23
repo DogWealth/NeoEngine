@@ -47,32 +47,32 @@ namespace NeoEngine {
 #define LOG_TRACE_ENABLED 0
 #endif
 
-#define NEO_FATAL(message, ...) NeoEngine::Logger::GetLogger().Log(NeoEngine::LogLevel::LOG_LEVEL_FATAL, message, #__VA_ARGS__);
+#define NEO_FATAL(message, ...) NeoEngine::Logger::GetLogger().Log(NeoEngine::LogLevel::LOG_LEVEL_FATAL, message, ##__VA_ARGS__);
 
 #ifndef NEO_ERROR
-#define NEO_ERROR(message, ...) NeoEngine::Logger::GetLogger().Log(NeoEngine::LogLevel::LOG_LEVEL_ERROR, message, #__VA_ARGS__);
+#define NEO_ERROR(message, ...) NeoEngine::Logger::GetLogger().Log(NeoEngine::LogLevel::LOG_LEVEL_ERROR, message, ##__VA_ARGS__);
 #endif
 
 #if LOG_WARNING_ENABLED == 1
-#define NEO_WARNING(message, ...) NeoEngine::Logger::GetLogger().Log(NeoEngine::LogLevel::LOG_LEVEL_WARNING, message, #__VA_ARGS__);
+#define NEO_WARNING(message, ...) NeoEngine::Logger::GetLogger().Log(NeoEngine::LogLevel::LOG_LEVEL_WARNING, message, ##__VA_ARGS__);
 #else
 #define NEO_WARNING(message, ...)
 #endif
 
 #if LOG_INFO_ENABLED == 1
-#define NEO_INFO(message, ...) NeoEngine::Logger::GetLogger().Log(NeoEngine::LogLevel::LOG_LEVEL_INFO, message, #__VA_ARGS__);
+#define NEO_INFO(message, ...) NeoEngine::Logger::GetLogger().Log(NeoEngine::LogLevel::LOG_LEVEL_INFO, message, ##__VA_ARGS__);
 #else
 #define NEO_INFO(message, ...)
 #endif
 
 #if LOG_DEBUG_ENABLED == 1
-#define NEO_DEBUG(message, ...) NeoEngine::Logger::GetLogger().Log(NeoEngine::LogLevel::LOG_LEVEL_DEBUG, message, #__VA_ARGS__);
+#define NEO_DEBUG_MSG(message, ...) NeoEngine::Logger::GetLogger().Log(NeoEngine::LogLevel::LOG_LEVEL_DEBUG, message, ##__VA_ARGS__);
 #else
-#define NEO_DEBUG(message, ...)
+#define NEO_DEBUG_MSG(message, ...)
 #endif
 
 #if LOG_TRACE_ENABLED == 1
-#define NEO_TRACE(message, ...) NeoEngine::Logger::GetLogger().Log(NeoEngine::LogLevel::LOG_LEVEL_TRACE, message, #__VA_ARGS__);
+#define NEO_TRACE(message, ...) NeoEngine::Logger::GetLogger().Log(NeoEngine::LogLevel::LOG_LEVEL_TRACE, message, ##__VA_ARGS__);
 #else
 #define NEO_TRACE(message, ...)
 #endif

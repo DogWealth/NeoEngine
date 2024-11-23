@@ -5,6 +5,7 @@
 #ifndef APPLICATION_H
 #define APPLICATION_H
 #include "platform/platform.h"
+#include "event.h"
 
 namespace NeoEngine {
 
@@ -27,16 +28,24 @@ namespace NeoEngine {
         double last_update_time;
     };
 
+    /*
+     * at first, i planned to use the singleton, but found that dynamic link would make Application singleton
+     * have more than noe instance, so i decided to use static class. it worked
+     */
     class NEO_API Application {
     public:
-        Application();
-        virtual ~Application();
-        bool Create(Game* game);
-        bool Run();
+        Application() = default;
+        ~Application() = default;
 
-    private:
-        bool initialized_;
-        ApplicationState state_;
+        static bool Create(Game* game);
+        static bool Run();
+
+        static void Initialize();
+        static void Shutdown();
+
+    public:
+        static bool initialized_;
+        static ApplicationState state_;
     };
 }
 

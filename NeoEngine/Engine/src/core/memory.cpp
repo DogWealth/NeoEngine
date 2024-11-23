@@ -29,7 +29,7 @@ namespace NeoEngine {
         "SCENE      ",
     };
 
-    MemoryStates Memory::states_;
+    MemoryStates Memory::states_{};
 
     void Memory::Initialize() {
         Platform::GetPlatform().Zero_Memory(&states_, sizeof(states_));

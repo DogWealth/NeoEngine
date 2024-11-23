@@ -16,7 +16,7 @@ bool GameTest::Update(float delta_time) {
 }
 
 bool GameTest::Render(float delta_time) {
-    NEO_INFO("Rendering...");
+    //NEO_INFO("Rendering...");
     return true;
 }
 

@@ -3,6 +3,7 @@
 //
 #include "pch.h"
 #include "platform_windows.h"
+#include "core/input.h"
 
 namespace NeoEngine {
 
@@ -197,33 +198,50 @@ namespace NeoEngine {
             case WM_KEYUP:
             case WM_SYSKEYDOWN:
             case WM_SYSKEYUP: {
-                //bool pressed = (message==WM_KEYDOWN || message==WM_SYSKEYDOWN);
-                //TODO
-                break;
-            }
+                bool pressed = (message==WM_KEYDOWN || message==WM_SYSKEYDOWN);
+                Keys key = static_cast<Keys>(wParam);
+                Input::GetInputSystem().ProcessKey(key, pressed);
+            } break;
             case WM_MOUSEMOVE: {
-                // int32_t x = GET_X_LPARAM(lParam);
-                // int32_t y = GET_Y_LPARAM(lParam);
-                //TODO
-                break;
-            }
+                int16_t x = GET_X_LPARAM(lParam);
+                int16_t y = GET_Y_LPARAM(lParam);
+
+                Input::GetInputSystem().ProcessMouseMove(x, y);
+            } break;
             case WM_MOUSEWHEEL: {
-                // uint32_t z_delta = GET_WHEEL_DELTA_WPARAM(wParam);
-                // if (z_delta != 0) {
-                //     z_delta = (z_delta > 0) ? 1 : -1;
-                //     //TODO
-                // }
-                break;
-            }
+                int8_t z_delta = GET_WHEEL_DELTA_WPARAM(wParam);
+                if (z_delta != 0) {
+                    z_delta = (z_delta > 0) ? 1 : -1;
+
+                    Input::GetInputSystem().ProcessMouseWheel(z_delta);
+                }
+            } break;
             case WM_LBUTTONDOWN:
             case WM_LBUTTONUP:
             case WM_RBUTTONDOWN:
             case WM_RBUTTONUP:
             case WM_MBUTTONDOWN:
             case WM_MBUTTONUP: {
-                // bool pressed = message == WM_LBUTTONDOWN || message == WM_RBUTTONDOWN || message == WM_MBUTTONDOWN;
-                //TODO
-                break;
+                bool pressed = message == WM_LBUTTONDOWN || message == WM_RBUTTONDOWN || message == WM_MBUTTONDOWN;
+                MouseButtons mouse_button = MouseButtons::MOUSE_BUTTON_MAX;
+                switch (message) {
+                    case WM_LBUTTONDOWN:
+                    case WM_LBUTTONUP:
+                        mouse_button = MouseButtons::MOUSE_BUTTON_LEFT;
+                        break;
+                    case WM_RBUTTONDOWN:
+                    case WM_RBUTTONUP:
+                        mouse_button = MouseButtons::MOUSE_BUTTON_RIGHT;
+                        break;
+                    case WM_MBUTTONDOWN:
+                    case WM_MBUTTONUP:
+                        mouse_button = MouseButtons::MOUSE_BUTTON_MIDDLE;
+                        break;
+                }
+
+                if(mouse_button != MouseButtons::MOUSE_BUTTON_MAX) {
+                    Input::GetInputSystem().ProcessButton(mouse_button, pressed);
+                }
             }
             default: ;
         }
