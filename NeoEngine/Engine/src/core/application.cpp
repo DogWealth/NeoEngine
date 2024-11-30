@@ -7,6 +7,7 @@
 #include "memory.h"
 #include "event.h"
 #include "input.h"
+#include "renderer/renderer_frontend.h"
 
 namespace NeoEngine {
     bool OnEvent(EventType event_type, void* sender, void* listener, EventContext context);
@@ -47,6 +48,12 @@ namespace NeoEngine {
             game->GetAppConfig().start_pos_y,
             game->GetAppConfig().start_width,
             game->GetAppConfig().start_height)) {
+            return false;
+        }
+
+        //Renderer initialize
+        if(!RendererFrontend::Initialize(game->GetAppConfig().name.c_str())) {
+            NEO_FATAL("Renderer failed to initialize.");
             return false;
         }
 
@@ -99,6 +106,14 @@ namespace NeoEngine {
                     break;
                 }
 
+                //TODO:need to refactor packet creation
+                RenderPacket packet{};
+                packet.delta_time = static_cast<float>(delta);
+                if(!RendererFrontend::DrawFrame(&packet)) {
+                    state_.is_running = false;
+                    break;
+                }
+
                 //figure out how long the frame took and, if below
                 double frame_end_time = Platform::GetPlatform().GetAbsoluteTime();
                 double frame_elapsed_time = frame_end_time - frame_start_time;
@@ -143,6 +158,9 @@ namespace NeoEngine {
         }
         Input::GetInputSystem().Shutdown();
         NEO_DEBUG_MSG("Input System shutdown");
+
+        RendererFrontend::Shutdown();
+        NEO_DEBUG_MSG("Render System shutdown");
 
         state_.platform->Shutdown();
         //delete state_.platform;
