@@ -6,6 +6,7 @@
 #define APPLICATION_H
 #include "platform/platform.h"
 #include "event.h"
+#include "clock.h"
 
 namespace NeoEngine {
 
@@ -25,6 +26,7 @@ namespace NeoEngine {
         bool is_suspended;
         Platform* platform;
         int16_t width, height;
+        Clock clock;
         double last_update_time;
     };
 

@@ -31,13 +31,12 @@ namespace NeoEngine {
         virtual void* Zero_Memory(void* ptr, uint64_t size) = 0;
         virtual void* Copy_Memory(void* dest, const void* src, uint64_t size) = 0;
         virtual void* SetMemory(void* dest, int32_t value, uint64_t size) = 0;
+        virtual double GetAbsoluteTime() = 0;
+        virtual void Sleep_(uint64_t ms) = 0;
 
         static Platform& GetPlatform();
 
-    protected:
-        virtual double GetAbsoluteTime() = 0;
 
-        virtual void Sleep_(uint64_t ms) = 0;
     };
 }
 

@@ -64,7 +64,15 @@ namespace NeoEngine {
     }
 
     bool Application::Run() {
-        NEO_INFO(Memory::GetMemoryUsageStr().c_str());
+        //process clock && time
+        state_.clock.Start();
+        state_.clock.Update();
+        state_.last_update_time = state_.clock.GetElapse();
+        double running_time = 0;
+        uint8_t  frame_count = 0;
+        double target_frame_seconds = 1.0f / 60;
+
+        NEO_INFO(Memory::GetMemoryUsageStr());
 
         while(state_.is_running) {
             if(!state_.platform->PumpMessage()) {
@@ -72,24 +80,49 @@ namespace NeoEngine {
             }
 
             if(!state_.is_suspended) {
-                if(!state_.game->Update(0)) {
+                //Update clock and get delta time
+                state_.clock.Update();
+                double current_time = state_.clock.GetElapse();
+                double delta = current_time - state_.last_update_time;
+                double frame_start_time = Platform::GetPlatform().GetAbsoluteTime();
+
+                if(!state_.game->Update(static_cast<float>(delta))) {
                     NEO_FATAL("Game failed to update.");
                     state_.is_running = false;
                     break;
                 }
-            }
 
-            //Render
-            if(!state_.game->Render(0)) {
-                NEO_FATAL("Game failed to render.");
-                state_.is_running = false;
-                break;
-            }
+                //Render
+                if(!state_.game->Render(static_cast<float>(delta))) {
+                    NEO_FATAL("Game failed to render.");
+                    state_.is_running = false;
+                    break;
+                }
 
-            // NOTE: Input update/state copying should always be handled
-            //after any input should be recorded; I.E. before this line.
-            //AS a safety, input is the last thing to be updated before this frame ends.
-            Input::GetInputSystem().Update(0);
+                //figure out how long the frame took and, if below
+                double frame_end_time = Platform::GetPlatform().GetAbsoluteTime();
+                double frame_elapsed_time = frame_end_time - frame_start_time;
+                running_time += frame_elapsed_time;
+                double remaining_seconds = target_frame_seconds - frame_elapsed_time;
+
+                if(remaining_seconds > 0) {
+                    double remaining_ms = remaining_seconds * 1000;
+
+                    bool limit_frames = false;
+                    if(remaining_ms > 0 && limit_frames) {
+                        Platform::GetPlatform().Sleep_(static_cast<uint64_t>(remaining_ms)- 1);
+                    }
+
+                    frame_count++;
+                }
+                // NOTE: Input update/state copying should always be handled
+                //after any input should be recorded; I.E. before this line.
+                //AS a safety, input is the last thing to be updated before this frame ends.
+                Input::GetInputSystem().Update(static_cast<float>(delta));
+
+                //update last time
+                state_.last_update_time = current_time;
+            }
         }
 
         state_.is_running = false;

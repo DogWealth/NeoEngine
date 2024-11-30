@@ -4,7 +4,7 @@
 
 #include "memory.h"
 
-#include <cstring>
+#include "nstring.h"
 
 #include "platform/platform.h"
 
@@ -77,13 +77,13 @@ namespace NeoEngine {
         return Platform::GetPlatform().SetMemory(pointer, value, size);
     }
 
-    std::string Memory::GetMemoryUsageStr() {
+    char* Memory::GetMemoryUsageStr() {
         const uint64_t gib = 1024 * 1024 * 1024;
         const uint64_t mib = 1024 * 1024;
         const uint64_t kib = 1024;
 
         char buffer[8000] = "System memory use (tagged):\n";
-        uint64_t offset = strlen(buffer);
+        uint64_t offset = string_len(buffer);
         for(uint32_t i = 0; i < static_cast<uint32_t>(MemoryTag::MEMORY_TAG_MAX_TAGS); i++) {
             char uint[4] = "XiB";
             float amount = 1.0f;
@@ -105,6 +105,6 @@ namespace NeoEngine {
             offset += length;
         }
 
-        return std::string{buffer};
+        return string_duplicate(buffer);
     }
 }

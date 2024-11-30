@@ -48,7 +48,7 @@ namespace NeoEngine {
         static void* Copy_Memory(void* dest, const void* source, uint64_t size);
         static void* SetMemory(void* pointer, int32_t value, uint64_t size);
 
-        static std::string GetMemoryUsageStr();
+        static char* GetMemoryUsageStr();
 
 
     private:
