@@ -16,4 +16,8 @@ namespace NeoEngine{
         Memory::Copy_Memory(copy, str, len + 1);
         return copy;
     }
+
+    bool string_equal(const char* str0, const char* str1) {
+        return strcmp(str0, str1) == 0;
+    }
 }

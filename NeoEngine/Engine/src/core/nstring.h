@@ -8,6 +8,7 @@
 namespace NeoEngine {
     NEO_API uint64_t string_len(const char* str);
     NEO_API char* string_duplicate(const char* str);
+    NEO_API bool string_equal(const char* str0, const char* str1);
 }
 
 

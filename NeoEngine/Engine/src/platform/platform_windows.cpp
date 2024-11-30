@@ -4,9 +4,8 @@
 #include "pch.h"
 #include "platform_windows.h"
 #include "core/input.h"
-
+#include "renderer/vulkan/vulkan_platform.h"
 namespace NeoEngine {
-
     LRESULT CALLBACK WindowsProcessMessage(HWND hwnd, uint32_t message, WPARAM wParam, LPARAM lParam);
 
     PlatformWindows::PlatformWindows() : platform_state_(new PlatformState()), clock_frequency_(), start_time_() {
