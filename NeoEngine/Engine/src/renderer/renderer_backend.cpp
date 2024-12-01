@@ -10,7 +10,7 @@ namespace NeoEngine {
             //TODO:
             auto* backend = static_cast<VulkanBackend*>(Memory::Allocate(sizeof(RendererBackend), MemoryTag::MEMORY_TAG_RENDERER));
             new(backend) VulkanBackend();
-            NEO_DEBUG_MSG("Create DX renderer");
+            NEO_DEBUG_MSG("Create Vulkan renderer");
             return backend;
         }
 

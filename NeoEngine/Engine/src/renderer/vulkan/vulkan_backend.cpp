@@ -12,7 +12,7 @@ namespace NeoEngine {
 
     bool VulkanBackend::Initialize(const char *application_name) {
         //TODO:
-        context.allocator = nullptr;
+        context_.allocator = nullptr;
 
         VkApplicationInfo app_info{};
         app_info.sType = VK_STRUCTURE_TYPE_APPLICATION_INFO;
@@ -77,7 +77,7 @@ namespace NeoEngine {
         create_info.enabledLayerCount = 0;
         create_info.ppEnabledLayerNames = nullptr;
 
-        VK_CHECK(vkCreateInstance(&create_info, context.allocator, &context.instance));
+        VK_CHECK(vkCreateInstance(&create_info, context_.allocator, &context_.instance));
         NEO_INFO("Vulkan instance created.")
 
 #ifdef NEO_DEBUG
@@ -96,10 +96,10 @@ namespace NeoEngine {
         debug_create_info.pUserData = nullptr;
 
         auto func =
-                (PFN_vkCreateDebugUtilsMessengerEXT) vkGetInstanceProcAddr(context.instance, "vkCreateDebugUtilsMessengerEXT");
+                (PFN_vkCreateDebugUtilsMessengerEXT) vkGetInstanceProcAddr(context_.instance, "vkCreateDebugUtilsMessengerEXT");
 
         NEO_ASSERT_MSG(func, "Failed to create debug messenger!");
-        VK_CHECK(func(context.instance, &debug_create_info, context.allocator, &context.debug_messenger));
+        VK_CHECK(func(context_.instance, &debug_create_info, context_.allocator, &context_.debug_messenger));
         NEO_DEBUG_MSG("Vulkan debugger created.");
 
 #endif
@@ -110,14 +110,14 @@ namespace NeoEngine {
 
     void VulkanBackend::Shutdown() {
         NEO_DEBUG_MSG("Destroying Vulkan debugger");
-        if(context.debug_messenger) {
-            auto func = (PFN_vkDestroyDebugUtilsMessengerEXT) vkGetInstanceProcAddr(context.instance, "vkDestroyDebugUtilsMessengerEXT");
+        if(context_.debug_messenger) {
+            auto func = (PFN_vkDestroyDebugUtilsMessengerEXT) vkGetInstanceProcAddr(context_.instance, "vkDestroyDebugUtilsMessengerEXT");
 
-            func(context.instance, context.debug_messenger, context.allocator);
+            func(context_.instance, context_.debug_messenger, context_.allocator);
         }
 
         NEO_DEBUG_MSG("Destroying Vulkan instance...");
-        vkDestroyInstance(context.instance, context.allocator);
+        vkDestroyInstance(context_.instance, context_.allocator);
     }
 
     void VulkanBackend::OnResized(uint16_t width, uint16_t height) {

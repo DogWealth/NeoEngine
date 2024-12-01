@@ -20,5 +20,18 @@ namespace NeoEngine {
         VkDebugUtilsMessengerEXT debug_messenger;
 #endif
     };
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
 #endif //NEOENGINE_VULKAN_TYPES_H

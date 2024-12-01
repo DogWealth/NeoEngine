@@ -17,7 +17,7 @@ namespace NeoEngine {
         bool EndFrame(float delta_time) override;
 
     private:
-        VulkanContext context{};
+        VulkanContext context_{};
     };
 
     VKAPI_ATTR VkBool32  VKAPI_CALL vk_debug_callback(
