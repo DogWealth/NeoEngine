@@ -23,7 +23,7 @@ namespace NeoEngine {
 
         void SetAppConfig(const ApplicationConfig& app_config) {app_config_ = app_config;};
 
-        [[nodiscard]] const ApplicationConfig& GetAppConfig()const {return app_config_;};
+        const ApplicationConfig& GetAppConfig()const {return app_config_;};
         void SetAppConfig(ApplicationConfig&& app_config) {app_config_ = app_config;};
 
         void* GetGameState() {return state_;};

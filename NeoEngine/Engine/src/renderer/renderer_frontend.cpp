@@ -7,7 +7,7 @@ namespace NeoEngine {
     RendererBackend* RendererFrontend::backend = nullptr;
 
     bool RendererFrontend::Initialize(const char *application_name) {
-        backend = RendererBackend::Create(RendererBackendType::Renderer_BACKEND_DIRECTX);
+        backend = RendererBackend::Create(RendererBackendType::Renderer_BACKEND_VULKAN);
         backend->frame_number_ = 0;
 
         if(!backend->Initialize(application_name)) {

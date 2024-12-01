@@ -109,7 +109,7 @@ namespace NeoEngine {
             platform_state_->hWnd = nullptr;
         }
 
-        delete platform_state_;
+        platform_state_ = nullptr;
     }
 
     bool PlatformWindows::PumpMessage() {

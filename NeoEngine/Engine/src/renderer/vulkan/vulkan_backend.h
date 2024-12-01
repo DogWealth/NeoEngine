@@ -10,6 +10,7 @@
 namespace NeoEngine {
     class VulkanBackend : public RendererBackend {
     public:
+        VulkanBackend() = default;
         bool Initialize(const char* application_name) override;
         void Shutdown() override;
         void OnResized(uint16_t width, uint16_t height) override;

@@ -6,9 +6,9 @@
 namespace NeoEngine {
 
     RendererBackend *RendererBackend::Create(RendererBackendType type) {
-        if(type == RendererBackendType::Renderer_BACKEND_DIRECTX) {
+        if(type == RendererBackendType::Renderer_BACKEND_VULKAN) {
             //TODO:
-            auto* backend = static_cast<VulkanBackend*>(Memory::Allocate(sizeof(RendererBackend), MemoryTag::MEMORY_TAG_RENDERER));
+            auto backend = static_cast<VulkanBackend*>(Memory::Allocate(sizeof(VulkanBackend), MemoryTag::MEMORY_TAG_RENDERER));
             new(backend) VulkanBackend();
             NEO_DEBUG_MSG("Create Vulkan renderer");
             return backend;
