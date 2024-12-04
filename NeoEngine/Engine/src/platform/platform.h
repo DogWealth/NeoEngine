@@ -4,7 +4,7 @@
 
 #ifndef PLATFORM_H
 #define PLATFORM_H
-
+#include "renderer/vulkan/vulkan_types.h"
 namespace NeoEngine {
 
     class Platform {
@@ -33,6 +33,10 @@ namespace NeoEngine {
         virtual void* SetMemory(void* dest, int32_t value, uint64_t size) = 0;
         virtual double GetAbsoluteTime() = 0;
         virtual void Sleep_(uint64_t ms) = 0;
+
+        //For Vulkan API
+        virtual bool CreateVulkanSurface(VulkanContext& context) = 0;
+        virtual void GetRequiredExtensionNames(DArray<const char*>& dArray) = 0;
 
         static Platform& GetPlatform();
 

@@ -14,6 +14,7 @@ namespace NeoEngine {
     struct PlatformState {
         HINSTANCE hInstance;
         HWND hWnd;
+        VkSurfaceKHR surface;
     };
 
     class PlatformWindows : public Platform {
@@ -39,6 +40,11 @@ namespace NeoEngine {
         void* Zero_Memory(void* ptr, uint64_t size) override;
         void* Copy_Memory(void* dest, const void* src, uint64_t size) override;
         void* SetMemory(void* dest, int32_t value, uint64_t size) override;
+
+        //For Vulkan API
+        bool CreateVulkanSurface(VulkanContext& context) override;
+        void GetRequiredExtensionNames(DArray<const char*>& dArray) override;
+
 
     private:
 

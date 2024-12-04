@@ -5,6 +5,12 @@
 #include "platform_windows.h"
 #include "core/input.h"
 #include "renderer/vulkan/vulkan_platform.h"
+
+//for surface creation
+#include <vulkan/vulkan.h>
+#include <vulkan/vulkan_win32.h>
+#include "renderer/vulkan/vulkan_types.h"
+
 namespace NeoEngine {
     LRESULT CALLBACK WindowsProcessMessage(HWND hwnd, uint32_t message, WPARAM wParam, LPARAM lParam);
 
@@ -141,6 +147,25 @@ namespace NeoEngine {
 
     void * PlatformWindows::SetMemory(void *dest, int32_t value, uint64_t size) {
         return memset(dest, value, size);
+    }
+
+    bool PlatformWindows::CreateVulkanSurface(VulkanContext &context) {
+        VkWin32SurfaceCreateInfoKHR create_info{};
+        create_info.sType = VK_STRUCTURE_TYPE_WIN32_SURFACE_CREATE_INFO_KHR;
+        create_info.hwnd = platform_state_->hWnd;
+
+        VkResult result = vkCreateWin32SurfaceKHR(context.instance, &create_info, context.allocator, &platform_state_->surface);
+        if(result != VK_SUCCESS) {
+            NEO_FATAL("Vulkan surface creation failed.");
+            return false;
+        }
+
+        context.surface = platform_state_->surface;
+        return true;
+    }
+
+    void PlatformWindows::GetRequiredExtensionNames(DArray<const char *> &dArray) {
+        dArray.PushBack("VK_KHR_win32_surface");
     }
 
     void PlatformWindows::ConsoleWrite(const std::string& message, const uint8_t color) {

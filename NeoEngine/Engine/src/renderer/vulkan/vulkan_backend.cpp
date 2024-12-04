@@ -7,6 +7,7 @@
 #include "containers/darray.h"
 #include "platform/platform.h"
 #include "vulkan_platform.h"
+#include "vulkan_device.h"
 
 namespace NeoEngine {
 
@@ -29,7 +30,7 @@ namespace NeoEngine {
         //obtain a list of required extension
         DArray<const char*> required_extensions;
         required_extensions.PushBack(VK_KHR_SURFACE_EXTENSION_NAME);
-        PlatformGetRequiredExtensionNames(required_extensions);
+        Platform::GetPlatform().GetRequiredExtensionNames(required_extensions);
 #ifdef NEO_DEBUG
         required_extensions.PushBack(VK_EXT_DEBUG_UTILS_EXTENSION_NAME);
 
@@ -101,8 +102,22 @@ namespace NeoEngine {
         NEO_ASSERT_MSG(func, "Failed to create debug messenger!");
         VK_CHECK(func(context_.instance, &debug_create_info, context_.allocator, &context_.debug_messenger));
         NEO_DEBUG_MSG("Vulkan debugger created.");
-
 #endif
+
+        //Surface
+        NEO_DEBUG_MSG("Creating Vulkan Surface...");
+        if(!Platform::GetPlatform().CreateVulkanSurface(context_)) {
+            NEO_ERROR("Failed to create platform surface.");
+            return false;
+        }
+        NEO_DEBUG_MSG("Vulkan surface created.");
+
+        //Device creation
+        if(!VulkanDevice::Create(&context_)) {
+            NEO_ERROR("Failed to create device.");
+            return false;
+        }
+
         NEO_INFO("Vulkan renderer initialized successfully.")
 
         return true;
